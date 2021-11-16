@@ -28,10 +28,10 @@ service.interceptors.response.use(response => {
             content: res.msg,
         })
 
-        // token 无效，清空路由，退出登录
+        // token 无效，清空路由，回到主页
         if (res.code == 2) {
             resetTokenAndClearUser()
-            router.push('login')
+            router.push('home')
         }
 
         return Promise.reject()

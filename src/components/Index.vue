@@ -5,7 +5,7 @@
             <!-- logo -->
             <div class="logo-c">
                 <img src="../assets/imgs/logo.png" alt="logo" class="logo">
-                <span v-show="isShowAsideTitle">后台管理系统</span>
+                <span v-show="isShowAsideTitle">景区数据系统</span>
             </div>
             <!-- 菜单栏 -->
             <Menu class="menu" ref="asideMenu" theme="light" width="100%" @on-select="selectMenuCallback"
@@ -86,31 +86,6 @@
                         </div>
                         <!-- 面包屑功能 -->
                         <p class="crumbs">{{crumbs}}</p>
-                    </div>
-                    <div class="h-right">
-                        <!-- 消息 -->
-                        <div class="notice-c" @click="info" title="查看新消息">
-                            <div :class="{newMsg: hasNewMsg}"></div>
-                            <Icon type="ios-notifications-outline" />
-                        </div>
-                        <!-- 用户头像 -->
-                        <div class="user-img-c">
-                            <img :src="userImg">
-                        </div>
-                        <!-- 下拉菜单 -->
-                        <Dropdown trigger="click" @on-click="userOperate" @on-visible-change="showArrow">
-                            <div class="pointer">
-                                <span>{{userName}}</span>
-                                <Icon v-show="arrowDown" type="md-arrow-dropdown"/>
-                                <Icon v-show="arrowUp" type="md-arrow-dropup"/>
-                            </div>
-                            <DropdownMenu slot="list">
-                                <!-- name标识符 -->
-                                <DropdownItem name="1">修改密码</DropdownItem>
-                                <DropdownItem name="2">基本资料</DropdownItem>
-                                <DropdownItem divided  name="3">退出登陆</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
                     </div>
                 </header>
 
@@ -334,29 +309,6 @@ export default {
                 this.isShowAsideTitle = true
             }, 200)
         },
-        // 用户操作
-        userOperate(name) {
-            switch (name) {
-                case '1':
-                    // 修改密码
-                    this.gotoPage('password')
-                    break
-                case '2':
-                    // 基本资料
-                    this.gotoPage('userinfo')
-                    break
-                case '3':
-                    resetTokenAndClearUser()
-                    this.$router.push({ name: 'login' })
-                    break
-            }
-        },
-        // 控制用户三角箭头显示状态
-        showArrow(flag) {
-            this.arrowUp = flag
-            this.arrowDown = !flag
-        },
-        // 判断
         isShrinkAside() {
             if (this.isShowAsideTitle) {
                 this.shrinkAside()
@@ -469,31 +421,6 @@ export default {
         // 激活标签
         activeTag(i) {
             this.gotoPage(this.tagsArry[i].name)
-        },
-        // 消息通知
-        info() {
-            const self = this
-            this.$Notice.info({
-                title: `您有${this.msgNum}条消息`,
-                render(h) {
-                    return h('Button', {
-                        attrs: {
-                            type: 'info',
-                            size: 'small',
-                        },
-                        on: {
-                            click() {
-                                // 点击查看跳转到消息页
-                                self.gotoPage('msg')
-                                self.hasNewMsg = false
-                                self.msgNum = 0
-                            },
-                        },
-                    }, [
-                        '点击查看',
-                    ])
-                },
-            })
         },
         // 菜单栏改变事件
         menuChange(data) {

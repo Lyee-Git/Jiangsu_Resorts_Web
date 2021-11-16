@@ -2,20 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-
 const commonRoutes = [
-    {
-        path: '/login',
-        name: 'login',
-        meta: { title: '登录' },
-        component: () => import('../components/Login.vue'),
-    },
-    {
-        path: '/other', // 点击侧边栏跳到一个单独的路由页面，需要定义，层级和其他顶级路由一样
-        name: 'other',
-        meta: { title: '单独的路由' },
-        component: () => import('../views/Other.vue'),
-    },
     {
         path: '/404',
         name: '404',
