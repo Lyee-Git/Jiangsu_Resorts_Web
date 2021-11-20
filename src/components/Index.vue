@@ -219,7 +219,7 @@ export default {
         keepAliveData() {
             return this.tagsArry.map(item => item.name)
         },
-        // 由于iView的导航菜单比较坑 只能设定一个name参数
+        // 由于iView的导航菜单只能设定一个name参数
         // 所以需要在这定义组件名称和标签栏标题的映射表 有多少个页面就有多少个映射条数
         nameToTitle() {
             const obj = {}
@@ -507,29 +507,9 @@ header .ivu-icon {
     display: flex;
     align-items: center;
 }
-.user-img-c img {
-    width: 100%;
-}
 .notice-c {
     cursor: pointer;
     position: relative;
-}
-.newMsg {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #FF5722;
-    right: 0;
-    top: 0;
-}
-.user-img-c {
-    width: 34px;
-    height: 34px;
-    background: #ddd;
-    border-radius: 50%;
-    margin: 0 40px;
-    overflow: hidden;
 }
 .tag-options {
     cursor: pointer;
@@ -619,11 +599,5 @@ a {
 }
 .shrink {
     text-align: center;
-}
-.external {
-    color: rgba(255,255,255,.7);
-}
-.external > i {
-    margin-right: 6px;
 }
 </style>

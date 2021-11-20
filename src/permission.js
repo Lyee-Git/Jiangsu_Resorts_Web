@@ -2,7 +2,7 @@ import { LoadingBar } from 'view-design'
 import router from './router'
 import store from './store'
 import createRoutes from '@/utils/createRoutes'
-import { getDocumentTitle, resetTokenAndClearUser } from './utils'
+import { getDocumentTitle } from './utils'
 
 // 是否有菜单数据
 let hasMenus = false

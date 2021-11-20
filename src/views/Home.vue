@@ -1,7 +1,7 @@
 <template>
     <div class="home-container">
         <div class="home-content">
-            <Button @click="getUserData">ajax 测试</Button>
+            <Button>test</Button>
 
             <Input :rows="30" style="margin-top: 20px" v-model="userInfo" type="textarea" />
         </div>
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { fetchUserData } from '@/api'
 
 export default {
     name: 'home',
@@ -19,11 +18,6 @@ export default {
         }
     },
     methods: {
-        getUserData() {
-            fetchUserData().then(res => {
-                this.userInfo = JSON.stringify(res, null, 4)
-            })
-        },
     },
 }
 </script>

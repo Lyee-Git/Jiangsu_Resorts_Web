@@ -12,7 +12,6 @@ const commonRoutes = [
     { path: '/', redirect: '/home' },
 ]
 
-// 本地所有的页面 需要配合后台返回的数据生成页面
 export const asyncRoutes = {
     home: {
         path: 'home',
@@ -20,30 +19,21 @@ export const asyncRoutes = {
         meta: { title: '主页' },
         component: () => import('../views/Home.vue'),
     },
-    t1: {
-        path: 't1',
-        name: 't1',
-        meta: { title: '表格' },
-        component: () => import('../views/T1.vue'),
-    },
-    userinfo: {
-        path: 'userinfo',
-        name: 'userinfo',
-        meta: { title: '用户信息' },
-        component: () => import('../views/UserInfo.vue'),
-    },
-    resort1: {
-        path: 'resort1',
-        name: 'resort1',
-        meta: { title: '景区1' },
-        component: () => import('../views/resort1.vue'),
-    },
     location: {
         path: 'location',
         name: 'location',
         meta: { title: '按景区位置查看' },
         component: () => import('../views/map.vue'),
     },
+}
+importPages(require.context('../views/resorts', true, /\.vue$/, 'lazy'));
+
+//动态导入所有景区的Router
+function importPages(r) {
+    r.keys().forEach(key => {
+        asyncRoutes[key.split('.')[1].slice(1)] = {path: key.split('.')[1].slice(1), name: key.split('.')[1].slice(1), component: () => r(key)};
+        //console.log(asyncRoutes);
+    });
 }
 
 const createRouter = () => new Router({
