@@ -26,18 +26,6 @@ export const asyncRoutes = {
         meta: { title: '表格' },
         component: () => import('../views/T1.vue'),
     },
-    password: {
-        path: 'password',
-        name: 'password',
-        meta: { title: '修改密码' },
-        component: () => import('../views/Password.vue'),
-    },
-    msg: {
-        path: 'msg',
-        name: 'msg',
-        meta: { title: '通知消息' },
-        component: () => import('../views/Msg.vue'),
-    },
     userinfo: {
         path: 'userinfo',
         name: 'userinfo',

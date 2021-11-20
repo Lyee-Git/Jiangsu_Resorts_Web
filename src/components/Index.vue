@@ -5,7 +5,7 @@
             <!-- logo -->
             <div class="logo-c">
                 <img src="../assets/imgs/logo.png" alt="logo" class="logo">
-                <span v-show="isShowAsideTitle">景区数据系统</span>
+                <span v-show="isShowAsideTitle">江苏景区数据系统</span>
             </div>
             <!-- 菜单栏 -->
             <Menu class="menu" ref="asideMenu" theme="light" width="100%" @on-select="selectMenuCallback"

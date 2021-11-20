@@ -10,6 +10,8 @@ import './permission'
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 Vue.prototype.$axios = axios
+const echarts = require('echarts')
+Vue.prototype.$echarts = echarts
 
 new Vue({
     el: '#app',
