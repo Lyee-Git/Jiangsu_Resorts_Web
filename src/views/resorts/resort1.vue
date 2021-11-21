@@ -12,7 +12,7 @@
             事实标签
             </p>
             <div style="text-align:center">
-                <img src="../../assets/imgs/常州/常州天目湖/事实标签/出游方式/出游方式.png" width="600px">
+                <img id="1" width="600px">
                 <h3>出游方式</h3>
             </div>
         </Card>
@@ -20,7 +20,7 @@
             <Col span="10">
                 <Card style="width:540px;margin-bottom:20px">
                 <div>
-                    <img src="../../assets/imgs/常州/常州天目湖/事实标签/地域来源/地域来源.png" width=500px >
+                    <img id="2" width=500px >
                     <h3 style="text-align:center">地域来源</h3>
                 </div>
                 </Card>
@@ -28,7 +28,7 @@
             <Col span="12" offset="1">
                 <Card style="width:650px;margin-bottom:20px;height=450px">
                 <div>
-                    <img src="../../assets/imgs/常州/常州天目湖/事实标签/购物品类/购物品类.png" width=620px height=385px >
+                    <img id="3" width=620px height=385px >
                     <h3 style="text-align:center">购物品类</h3>
                 </div>
                 </Card>
@@ -40,15 +40,15 @@
             事实标签
             </p>
             <div style="text-align:center">
-                <img src="../../assets/imgs/常州/常州天目湖/事实标签/游玩次数/游玩次数.png" width="600px">
-                <h3>游玩次数分布</h3>
+                <img id="4" width="600px">
+                <h3>景区游玩次数分布</h3>
             </div>
         </Card>
         <Row>
             <Col span="10">
                 <Card style="width:540px;margin-bottom:20px">
                 <div>
-                    <img src="../../assets/imgs/常州/常州天目湖/事实标签/性别比例/性别比例.png" width=500px >
+                    <img id="5" width=500px >
                     <h3 style="text-align:center">性别比例</h3>
                 </div>
                 </Card>
@@ -56,7 +56,7 @@
             <Col span="12" offset="1">
                 <Card style="width:650px;margin-bottom:20px;height=450px">
                 <div>
-                    <img src="../../assets/imgs/常州/常州天目湖/事实标签/旅游时段选择/旅游时段选择.png" width=620px height=385px >
+                    <img id="6" width=620px height=385px >
                     <h3 style="text-align:center">旅游时段选择</h3>
                 </div>
                 </Card>
@@ -68,7 +68,7 @@
             事实标签
             </p>
             <div style="text-align:center">
-                <img src="../../assets/imgs/常州/常州天目湖/事实标签/年龄分布/年龄分布.png" width="600px">
+                <img id="7" width="600px">
                 <h3>年龄分布</h3>
             </div>
         </Card>
@@ -78,7 +78,7 @@
             事实标签
             </p>
             <div style="text-align:center">
-                <img src="../../assets/imgs/常州/常州天目湖/事实标签/消费水平/消费水平.png" width="600px">
+                <img id="8" width="600px">
                 <h3>消费水平</h3>
             </div>
         </Card>
@@ -91,14 +91,25 @@
     </div>
 </template>
 <script>
-    import { option } from '../map.vue';
+    import { resorts_data } from '../Home.vue';
     export default {      
         mounted(){
             this.CreatePath();
         },
         methods: {
             CreatePath() {
-                console.log(drawline().option.series[0].data[1]);
+                let img_name = ["出游方式", "地域来源", "购物品类","景区游玩次数", "性别比例","旅游时段选择","年龄分布", "消费水平"];
+                var resort_idx = this.$route.name.slice(-1) - 1;
+                let division = resort_idx > 0 && resort_idx < 3 ? 3 : 2;
+                var city = resorts_data[resort_idx].name.slice(0, division);
+                var resort_name = resorts_data[resort_idx].name.slice(division);
+                //document.getElementById("1").src = require("../../assets/imgs/常州/常州天目湖/事实标签/出游方式/出游方式.png")
+                img_name.forEach(function(value, index){
+                    const file_path = "/static/imgs/" + city + "/" + city + resort_name + "/事实标签/" + value + "/" + value + ".png";
+                    //console.log(file_path);
+                    let pic_id = index + 1;
+                    document.getElementById(pic_id.toString()).src = file_path;
+                });
             }
         }    
     }

@@ -19,12 +19,6 @@ export const asyncRoutes = {
         meta: { title: '主页' },
         component: () => import('../views/Home.vue'),
     },
-    location: {
-        path: 'location',
-        name: 'location',
-        meta: { title: '按景区位置查看' },
-        component: () => import('../views/map.vue'),
-    },
 }
 importPages(require.context('../views/resorts', true, /\.vue$/, 'lazy'));
 

@@ -10,14 +10,8 @@ const store = new Vuex.Store({
             {
                 name: 'home', 
                 size: 18, 
-                type: 'md-home', 
-                text: '主页', 
-            },
-            {
-                name: 'location', 
-                size: 18, 
                 type: 'ios-locate-outline', 
-                text: '按景区位置查看', 
+                text: '按景区位置查看',
             },
             {
                 text: '按景区名称查看',

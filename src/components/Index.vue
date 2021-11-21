@@ -24,18 +24,7 @@
                                     <span v-show="isShowAsideTitle">{{subItem.text}}</span>
                                 </template>
                                 <template v-for="(threeItem, k) in subItem.children">
-                                    <a href="https://www.baidu.com" target="_blank" :key="index + i + k" v-if="threeItem.isExternal">
-                                        <MenuItem :class="isShowAsideTitle? '' : 'shrink'" class="menu-level-3"
-                                        :name="'external-link-' + index + i + k">
-                                            <template v-if="!threeItem.hidden">
-                                                <a :href="threeItem.url" target="_blank" class="external">
-                                                    <Icon :size="threeItem.size" :type="threeItem.type"/>
-                                                    <span v-show="isShowAsideTitle">{{threeItem.text}}</span>
-                                                </a>
-                                            </template>
-                                        </MenuItem>
-                                    </a>
-                                    <MenuItem v-else :class="isShowAsideTitle? '' : 'shrink'" class="menu-level-3"
+                                    <MenuItem v-if="!threeItem.isExternal" :class="isShowAsideTitle? '' : 'shrink'" class="menu-level-3"
                                     :name="threeItem.name" :key="index + i + k">
                                         <template v-if="!threeItem.hidden">
                                             <Icon :size="threeItem.size" :type="threeItem.type"/>
@@ -45,14 +34,7 @@
                                 </template>
                             </Submenu>
                             <template v-else-if="!subItem.hidden">
-                                <a :href="subItem.url" v-if="subItem.isExternal" target="_blank" class="external">
-                                    <MenuItem :class="isShowAsideTitle? '' : 'shrink'"
-                                    :name="'external-link-' + index + '-' + i">
-                                        <Icon :size="subItem.size" :type="subItem.type"/>
-                                        <span v-show="isShowAsideTitle">{{subItem.text}}</span>
-                                    </MenuItem>
-                                </a>
-                                <MenuItem v-else :class="isShowAsideTitle? '' : 'shrink'" :name="subItem.name">
+                                <MenuItem v-if="!subItem.isExternal" :class="isShowAsideTitle? '' : 'shrink'" :name="subItem.name">
                                     <Icon :size="subItem.size" :type="subItem.type"/>
                                     <span v-show="isShowAsideTitle">{{subItem.text}}</span>
                                 </MenuItem>
@@ -142,23 +124,18 @@ export default {
             currentPage: '',
             openMenus: [], // 要打开的菜单名字 name属性
             menuCache: [], // 缓存已经打开的菜单
-            hasNewMsg: true, // 是否有新消息
             isShowRouter: true,
             msgNum: '10', // 新消息条数
             // 标签栏         标签标题     路由名称
             // 数据格式 {text: '首页', name: 'home'}
             // 用于缓存打开的路由 在标签栏上展示
             tagsArry: [],
-            arrowUp: false, // 用户详情向上箭头
-            arrowDown: true, // 用户详情向下箭头
             isShowAsideTitle: true, // 是否展示侧边栏内容
             main: null, // 页面主要内容区域
             asideClassName: 'aside-big', // 控制侧边栏宽度变化
             asideArrowIcons: [], // 缓存侧边栏箭头图标 收缩时用
             // 面包屑
             crumbs: '主页',
-            userName: '',
-            userImg: '',
             // 主页路由名称
             home: 'home',
         }
@@ -171,20 +148,13 @@ export default {
             text: this.nameToTitle[name],
             name,
         })
-
         // 根据路由打开对应的菜单栏
         this.openMenus = this.getMenus(name)
         this.$nextTick(() => {
             this.$refs.asideMenu.updateOpened()
         })
-
-        // 设置用户信息
-        this.userName = localStorage.getItem('userName')
-        this.userImg = localStorage.getItem('userImg')
-
         this.main = document.querySelector('.sec-right')
         this.asideArrowIcons = document.querySelectorAll('aside .ivu-icon-ios-arrow-down')
-
         // 监听窗口大小 自动收缩侧边栏
         this.monitorWindowSize()
     },
