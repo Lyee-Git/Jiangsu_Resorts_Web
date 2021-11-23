@@ -4,7 +4,6 @@ import store from './store'
 import createRoutes from '@/utils/createRoutes'
 import { getDocumentTitle } from './utils'
 
-// 是否有菜单数据
 let hasMenus = false
 router.beforeEach(async (to, from, next) => {
     document.title = getDocumentTitle(to.meta.title)

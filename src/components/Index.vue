@@ -70,7 +70,6 @@
                         <p class="crumbs">{{crumbs}}</p>
                     </div>
                 </header>
-
                 <!-- 标签栏 -->
                 <div class="div-tags">
                     <ul class="ul-c">
@@ -112,7 +111,6 @@
 </template>
 
 <script>
-import { resetTokenAndClearUser } from '../utils'
 
 export default {
     name: 'index',
@@ -234,13 +232,11 @@ export default {
                 }
             }
         },
-
         monitorWindowSize() {
             let w = document.documentElement.clientWidth || document.body.clientWidth
             if (w < 1300) {
                 this.shrinkAside()
             }
-
             window.onresize = () => {
                 // 可视窗口宽度太小 自动收缩侧边栏
                 if (w < 1300 && this.isShowAsideTitle
@@ -251,7 +247,6 @@ export default {
                 w = document.documentElement.clientWidth || document.body.clientWidth
             }
         },
-
         // 判断当前标签页是否激活状态
         isActive(name) {
             return this.$route.name === name

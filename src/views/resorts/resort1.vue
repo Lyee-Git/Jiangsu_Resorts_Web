@@ -2,7 +2,7 @@
     <div style="background:#eee;padding: 20px;margin-bottom:10px;overflow-y:scroll;overflow-x:hidden;height:100%">
         <div>
             <Card :bordered="false" style="margin-bottom:10px">
-            <p slot="title"><Icon type="ios-contacts" ></Icon> 天目湖: 游客画像</p>
+            <p id="title" slot="title"><Icon type="ios-contacts" ></Icon> </p>
             <p>常州天目湖的游客通常来自江苏省、浙江省和上海市，以青、中年群体为主，女性游客比例高于男性，出游时段暑期最多、平时和国庆次之。在游玩过程中，主要购买地方特产，花费在1000-2000元的比例最高，500-1000元次之，消费水平高于江苏景区一般水平。游玩次数上，多次游玩游客数更多。</p>
             </Card>
         </div>
@@ -84,7 +84,7 @@
         </Card>
         <div>
             <Card :bordered="false" style="margin-bottom:10px">
-            <p slot="title"><Icon type="ios-pin-outline" ></Icon> 天目湖: 发展建议</p>
+            <p id="advice" slot="title"><Icon type="ios-pin-outline" ></Icon> </p>
             <p>天目湖作为江苏省首批生态旅游示范区，风景秀美，有“江南明珠”、“绿色仙境”的美称。物产丰富，有“沙河桂茗”绿茶、“乌龙茶”、“珍珠栗”、“桂元栗”、“砂锅鱼头”等等，人文底蕴深厚。目前旅游业整体发展较好，在未来应注重增加特色，扩大辐射范围。</p>
             </Card>
         </div>
@@ -110,6 +110,8 @@
                     let pic_id = index + 1;
                     document.getElementById(pic_id.toString()).src = file_path;
                 });
+                document.getElementById("title").innerHTML = resort_name + ": 游客画像";
+                document.getElementById("advice").innerHTML = resort_name + ": 发展建议";
             }
         }    
     }
