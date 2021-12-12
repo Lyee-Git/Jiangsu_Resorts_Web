@@ -4,7 +4,7 @@
         <aside :class="asideClassName">
             <!-- logo -->
             <div class="logo-c">
-                <img src="../assets/imgs/logo.png" alt="logo" class="logo">
+                <img src="/static/imgs/logo.png" alt="logo" class="logo">
                 <span v-show="isShowAsideTitle">江苏景区数据系统</span>
             </div>
             <!-- 菜单栏 -->
@@ -66,7 +66,7 @@
                         <div class="pointer" @click="isShrinkAside" title="收缩/展开">
                             <Icon type="ios-apps" />
                         </div>
-                        <!-- 面包屑功能 -->
+                        <!-- 面包屑 -->
                         <p class="crumbs">{{crumbs}}</p>
                     </div>
                 </header>
@@ -109,7 +109,6 @@
         </section>
     </div>
 </template>
-
 <script>
 
 export default {
@@ -267,7 +266,6 @@ export default {
         },
         // 选择菜单回调函数
         selectMenuCallback(name) {
-            if (name.includes('external-link')) return
             this.gotoPage(name)
             this.expandAside()
             setTimeout(() => {

@@ -106,7 +106,7 @@
                 //document.getElementById("1").src = require("../../assets/imgs/常州/常州天目湖/事实标签/出游方式/出游方式.png")
                 img_name.forEach(function(value, index){
                     const file_path = "/static/imgs/" + city + "/" + city + resort_name + "/事实标签/" + value + "/" + value + ".png";
-                    //console.log(file_path);
+                    console.log(file_path);
                     let pic_id = index + 1;
                     document.getElementById(pic_id.toString()).src = file_path;
                 });
