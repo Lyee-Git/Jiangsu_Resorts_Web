@@ -113,7 +113,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <Table border :columns="columns" :data="data"></Table>
+                    <Table style="margin-bottom:20px" border :columns="columns" :data="showdata"></Table>
+                </tr>
+                <tr>
+                    <Page :total="dataCount" :current="pageCurrent"  :page-size="pagesize" show-total show-elevator @on-change="changepage"></Page>
                 </tr>
             </table>
 
@@ -265,6 +268,7 @@ import { json } from 'body-parser';
 					}
 				],
 				data: [],
+                showdata: [],
 				ruleValidate: { //表单验证
 					name: [{
 						required: true,
@@ -319,6 +323,9 @@ import { json } from 'body-parser';
                 idx: 0,
                 city: '',
                 resort_name: '',
+                dataCount: 0,
+                pagesize: 10,
+                pageCurrent: 1,
 			}
 		},
         methods: {
@@ -348,8 +355,21 @@ import { json } from 'body-parser';
                     idx: idx
                 }).then(res => {
                     Revdata = res.data
-                    this.data = Revdata.sort((a, b) => b.rating - a.rating)
+                    this.data = Revdata //.sort((a, b) => b.rating - a.rating)
+                }).then(() => {
+                    this.dataCount = this.data.length
+                    if (this.dataCount < this.pagesize)
+                        this.showdata = this.data
+                    else
+                        this.showdata = this.data.slice(0, this.pagesize)
+                    this.pageCurrent = 1
                 })
+            },
+            changepage(index){
+                let start = (index - 1) * this.pagesize
+                let end = index * this.pagesize
+                this.showdata = this.data.slice(start, end)
+                this.pageCurrent = index;
             },
             show(row, index) {
                 this.modalConfig_table.title = "评论详情"
@@ -384,7 +404,6 @@ import { json } from 'body-parser';
 							this.$Message.success('新增成功');
 						}
 						if (title == "编辑评论") {
-                            let idx = parseInt(this.$route.name.slice(-1))
                             this.$axios.post(
                                 this.IP + 'updateRev', {
                                     idx: this.idx,
@@ -416,7 +435,7 @@ import { json } from 'body-parser';
                     title: '警告',
                     content: '<p>确定删除" '+ row.name +' "用户的该条评论吗？</p>',
                     onOk: () => {
-						let params = JSON.parse(JSON.stringify(this.data[index]))
+						let params = JSON.parse(JSON.stringify(this.showdata[index]))
                         //console.log(params)
                         this.$axios.post(
                                 this.IP + 'delRev', {
@@ -450,7 +469,7 @@ import { json } from 'body-parser';
 							res.push(tabledata[i]);
 						}
 					}
-					this.data = res;
+					this.showdata = res;
 				}
 			},
             refresh() {
@@ -469,6 +488,7 @@ import { json } from 'body-parser';
 			},
 			exportExcel() { 
                 this.showRev()
+                console.log(this.data)
 				let tabledata = JSON.parse(JSON.stringify(this.data));
                 var resort_idx = this.$route.name.slice(-1) - 1
                 let division = resort_idx > 0 && resort_idx < 3 ? 3 : 2
@@ -507,12 +527,13 @@ import { json } from 'body-parser';
                       'review': 'E',
 				    })
 				    console.log('Retrieved JSON：' + JSON.stringify(data)); 
-					let Exceldata = data[0].sheet1.slice(1);
+					let Exceldata = data[0].Sheet1.slice(1);
+                    if (data[0].Sheet1 == undefined)
+                        Exceldata = data[0].sheet1.slice(1)
                     let values = []
                     Exceldata.forEach((value, index) => {
                         values[index] = Object.keys(Exceldata[index]).map(item => Exceldata[index][item])
                     })
-                    //console.log(values)
                     that.$axios.post(
                                 that.IP + 'insertRev', {
                                     idx: that.idx,
